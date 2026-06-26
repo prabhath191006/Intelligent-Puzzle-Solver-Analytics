@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  mongodb:
+    image: mongo:7
+    container_name: puzzle-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - puzzle-net
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: ../Dockerfile.backend
+    container_name: puzzle-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017
+      - FLASK_ENV=development
+    depends_on:
+      - mongodb
+    networks:
+      - puzzle-net
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: puzzle-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - puzzle-net
+
+volumes:
+  mongo_data:
+
+networks:
+  puzzle-net:
+    driver: bridge

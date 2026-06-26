@@ -1,0 +1,24 @@
+/* ══════════════════════════════════════════════════════════════
+   App Layout Styles
+   ══════════════════════════════════════════════════════════════ */
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  padding-top: 80px; /* navbar height */
+}
+
+/* ── Footer ── */
+.footer {
+  padding: 24px 0;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  border-top: 1px solid var(--border-subtle);
+  background: var(--bg-secondary);
+}
